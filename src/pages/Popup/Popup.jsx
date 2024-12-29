@@ -2,18 +2,38 @@ import React from 'react';
 import './Popup.css';
 
 const Popup = () => {
-  const options = ['Option 1', 'Option 2', 'Option 3']; // We can modify these later
+  const options = [
+    'input-text',
+    'clickable',
+    'select',
+    'radio',
+    'checkbox',
+    'textarea',
+    'datepicker'
+  ];
+
+  const highlight = (elementType) => {
+    console.log('Highlight function running in webpage context');
+    console.log('Looking for elements of type:', elementType);
+
+    const highlightInputText = () => {
+      console.log('Highlighting input text');
+      document.querySelectorAll('input[type="text"], textarea, input[type="password"]').forEach(input => {
+        input.style.border = '2px solid red';
+      });
+    };
+
+    if (elementType === 'input-text') {
+      highlightInputText();
+    }
+  };
 
   const handleHighlight = async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
-    // Inject and execute content script
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: (selectedOption) => {
-        console.log('Highlight button clicked!');
-        console.log('Selected option:', selectedOption);
-      },
+      func: highlight,
       args: [document.querySelector('select').value]
     });
   };
