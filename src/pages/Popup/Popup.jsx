@@ -1,5 +1,6 @@
 import React from 'react';
 import './Popup.css';
+import { highlight } from '../../services/dom/highlight';
 
 const Popup = () => {
   const options = [
@@ -11,22 +12,6 @@ const Popup = () => {
     'textarea',
     'datepicker'
   ];
-
-  const highlight = (elementType) => {
-    console.log('Highlight function running in webpage context');
-    console.log('Looking for elements of type:', elementType);
-
-    const highlightInputText = () => {
-      console.log('Highlighting input text');
-      document.querySelectorAll('input[type="text"], textarea, input[type="password"]').forEach(input => {
-        input.style.border = '2px solid red';
-      });
-    };
-
-    if (elementType === 'input-text') {
-      highlightInputText();
-    }
-  };
 
   const handleHighlight = async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
