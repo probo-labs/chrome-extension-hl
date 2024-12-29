@@ -1,16 +1,18 @@
 import React from 'react';
 import './Popup.css';
 import { highlight } from '../../services/dom/highlight';
+import { ElementTag } from '../../services';
 
 const Popup = () => {
   const options = [
-    'input-text',
-    'clickable',
-    'select',
-    'radio',
-    'checkbox',
-    'textarea',
-    'datepicker'
+    ElementTag.INPUT_TEXT,
+    ElementTag.BUTTON,
+    ElementTag.LINK,
+    ElementTag.INPUT_SELECT,
+    ElementTag.INPUT_CHECKBOX,
+    ElementTag.INPUT_RADIO,
+    ElementTag.TEXTAREA,
+    ElementTag.TOGGLE_SWITCH
   ];
 
   const handleHighlight = async () => {
@@ -18,8 +20,8 @@ const Popup = () => {
     
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: highlight,
-      args: [document.querySelector('select').value]
+      func: highlight.execute,
+      args: [document.querySelector('select').value, ElementTag]
     });
   };
 
