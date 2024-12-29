@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
 import './Popup.css';
 
 const Popup = () => {
+  const options = ['Option 1', 'Option 2', 'Option 3']; // We can modify these later
+
+  const handleHighlight = async () => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    
+    // Inject and execute content script
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: (selectedOption) => {
+        console.log('Highlight button clicked!');
+        console.log('Selected option:', selectedOption);
+      },
+      args: [document.querySelector('select').value]
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
+      <select defaultValue={options[0]}>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      <button onClick={handleHighlight}>Highlight</button>
     </div>
   );
 };
