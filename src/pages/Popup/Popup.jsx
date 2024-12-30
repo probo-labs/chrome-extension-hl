@@ -1,5 +1,5 @@
 import React from 'react';
-import './Popup.css';
+import '../../styles/tailwind.css';
 import { highlight } from '../../services/dom/highlight';
 import { ElementTag } from '../../services';
 
