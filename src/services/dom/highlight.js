@@ -133,8 +133,7 @@ export const highlight = {
       style.id = 'highlight-styles';
       style.textContent = `
         .extension-highlighted {
-          border: 2px solid red !important;
-          background-color: rgba(255, 0, 0, 0.1) !important;
+          border: 1px solid red !important;
           transition: all 0.2s ease-in-out;
         }
       `;
