@@ -1,7 +1,8 @@
+// src/pages/Popup/Popup.jsx
+
 import React from 'react';
-import '../../styles/tailwind.css';
-import { highlight } from '../../services/dom/highlight';
 import { ElementTag } from '../../services';
+import '../../styles/tailwind.css';
 
 const Popup = () => {
   const options = [
@@ -17,34 +18,40 @@ const Popup = () => {
 
   const handleHighlight = async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const selectedValue = document.querySelector('select').value;
     
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: highlight.execute,
-      args: [document.querySelector('select').value, ElementTag]
+    chrome.tabs.sendMessage(tab.id, {
+      action: 'highlight',
+      elementType: selectedValue
     });
   };
 
   const handleUnhighlight = async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: highlight.unexecute
+    chrome.tabs.sendMessage(tab.id, {
+      action: 'unhighlight'
     });
   };
 
   return (
     <div className="App">
-      <select className="select select-bordered w-full" defaultValue={options[0]}>
+      <select
+        className="select select-bordered w-full"
+        defaultValue={options[0]}
+      >
         {options.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-      <button className="btn btn-primary w-full" onClick={handleHighlight}>Highlight</button>
-      <button className="btn btn-ghost w-full" onClick={handleUnhighlight}>Clear</button>
+      <button className="btn btn-primary w-full" onClick={handleHighlight}>
+        Highlight
+      </button>
+      <button className="btn btn-ghost w-full" onClick={handleUnhighlight}>
+        Clear
+      </button>
     </div>
   );
 };
