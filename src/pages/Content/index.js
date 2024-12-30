@@ -1,4 +1,4 @@
-import { highlight } from '../../services/dom/highlight';
+import { highlight } from 'probolabs-js';
 
 console.log('🔥🔥🔥 Content script loaded!', window.location.href);
 

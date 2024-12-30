@@ -1,7 +1,7 @@
 // src/pages/Popup/Popup.jsx
 
 import React from 'react';
-import { ElementTag } from '../../services';
+import { ElementTag } from 'probolabs-js';
 import '../../styles/tailwind.css';
 
 const Popup = () => {
