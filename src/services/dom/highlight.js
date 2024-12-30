@@ -2,6 +2,20 @@ import { ElementTag } from '../index';
 
 export const highlight = {
   execute: function(elementType, ElementTag) {
+    // Add highlight styles if they don't exist
+    if (!document.getElementById('highlight-styles')) {
+      const style = document.createElement('style');
+      style.id = 'highlight-styles';
+      style.textContent = `
+        .extension-highlighted {
+          border: 2px solid red !important;
+          background-color: rgba(255, 0, 0, 0.1) !important;
+          transition: all 0.2s ease-in-out;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     console.log('Highlighting elements of type:', elementType);
     
     const findDropdowns = () => {
@@ -66,13 +80,27 @@ export const highlight = {
       elements.push(...findToggles());
     }
 
-    // Remove SVGs and highlight elements
+    // Remove SVGs and add highlight class
     elements.forEach(element => {
       element.querySelectorAll('svg').forEach(svg => svg.remove());
-      element.style.border = '2px solid red';
-      element.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+      element.classList.add('extension-highlighted');
     });
 
     console.log(`Found ${elements.length} elements of type ${elementType}`);
+  },
+
+  unexecute: function() {
+    // Remove all highlighted elements
+    document.querySelectorAll('.extension-highlighted').forEach(element => {
+      element.classList.remove('extension-highlighted');
+    });
+
+    // Optionally remove the style tag
+    const style = document.getElementById('highlight-styles');
+    if (style) {
+      style.remove();
+    }
+
+    console.log('Removed all highlights');
   }
 };
