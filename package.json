@@ -1,6 +1,6 @@
 {
   "name": "probo-labs-chrome-extension",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Probo Labs Extension",
   "license": "MIT",
   "repository": {
@@ -9,12 +9,12 @@
   },
   "scripts": {
     "build": "node utils/build.js",
-    "zip": "bestzip chrome-extension-hl.zip build/*",
+    "zip": "node utils/zip.js",
     "start": "node utils/webserver.js",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "dependencies": {
-    "probolabs-js": "git+https://github.com/probo-labs/probolabs-js.git",
+    "probolabs-js": "file:../probolabs-js",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
