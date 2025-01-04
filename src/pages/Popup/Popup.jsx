@@ -6,14 +6,10 @@ import '../../styles/tailwind.css';
 
 const Popup = () => {
   const options = [
-    ElementTag.INPUT_TEXT,
-    ElementTag.BUTTON,
-    ElementTag.LINK,
-    ElementTag.INPUT_SELECT,
-    ElementTag.INPUT_CHECKBOX,
-    ElementTag.INPUT_RADIO,
-    ElementTag.TEXTAREA,
-    ElementTag.TOGGLE_SWITCH
+    ElementTag.CLICKABLE,
+    ElementTag.FILLABLE,
+    ElementTag.SELECTABLE,
+    ElementTag.NON_INTERACTIVE_ELEMENT
   ];
 
   const handleHighlight = async (selectedValue) => {
@@ -31,28 +27,31 @@ const Popup = () => {
     });
   };
 
-  const handleSelectChange = async (event) => {
+  const handleRadioChange = async (event) => {
     await handleUnhighlight();
-    if (event.target.value !== '') {  // Only highlight if not the default option
-      await handleHighlight(event.target.value);
-    }
+    await handleHighlight(event.target.value);
   };
 
   return (
     <div className="App p-2 min-w-[180px]">
-      <select
-        className="select select-bordered select-sm w-full mb-2 text-sm"
-        defaultValue=""
-        onChange={handleSelectChange}
-      >
-        <option value="" disabled>-- please select --</option>
+      <div className="flex flex-col gap-1 mb-2">
         {options.map((option) => (
-          <option key={option} value={option} className="text-sm">
-            {option}
-          </option>
+          <label key={option} className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="elementType"
+              value={option}
+              onChange={handleRadioChange}
+              className="radio radio-sm"
+            />
+            <span className="text-sm">{option}</span>
+          </label>
         ))}
-      </select>
-      <button className="btn btn-ghost btn-sm w-full text-sm" onClick={handleUnhighlight}>
+      </div>
+      <button 
+        className="btn btn-ghost btn-sm w-full text-sm" 
+        onClick={handleUnhighlight}
+      >
         Clear
       </button>
     </div>
