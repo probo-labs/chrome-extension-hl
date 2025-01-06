@@ -8,6 +8,15 @@
     "default_popup": "popup.html",
     "default_icon": "pl-icon-32.png"
   },
+  "commands": {
+    "toggle-highlight": {
+      "suggested_key": {
+        "default": "Alt+Shift+H",
+        "mac": "Alt+Shift+H"
+      },
+      "description": "Toggle highlight"
+    }
+  },
   "icons": {
     "128": "pl-icon-128.png"
   },

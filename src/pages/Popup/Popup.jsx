@@ -5,6 +5,17 @@ import { ElementTag } from 'probolabs-js';
 import '../../styles/tailwind.css';
 
 const Popup = () => {
+  const [selectedOption, setSelectedOption] = React.useState(ElementTag.CLICKABLE);
+
+  // Load the selected option on component mount
+  React.useEffect(() => {
+    chrome.storage.local.get("selectedOption", (data) => {
+      if (data.selectedOption) {
+        setSelectedOption(data.selectedOption);
+      }
+    });
+  }, []);
+
   const options = [
     ElementTag.CLICKABLE,
     ElementTag.FILLABLE,
@@ -28,12 +39,18 @@ const Popup = () => {
   };
 
   const handleRadioChange = async (event) => {
+    const value = event.target.value;
+    setSelectedOption(value);
+    
+    // Save the selected option in chrome.storage
+    chrome.storage.local.set({ selectedOption: value });
+    
     await handleUnhighlight();
-    await handleHighlight(event.target.value);
+    await handleHighlight(value);
   };
 
   return (
-    <div className="App p-2 min-w-[180px]">
+    <div className="App p-2 min-w-[180px] bg-white">
       <div className="flex flex-col gap-1 mb-2">
         {options.map((option) => (
           <label key={option} className="flex items-center gap-2 cursor-pointer">
@@ -41,6 +58,7 @@ const Popup = () => {
               type="radio"
               name="elementType"
               value={option}
+              checked={selectedOption === option}
               onChange={handleRadioChange}
               className="radio radio-sm"
             />
