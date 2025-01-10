@@ -30,7 +30,12 @@
   "devtools_page": "devtools.html",
   "web_accessible_resources": [
     {
-      "resources": ["content.styles.css", "pl-icon-128.png", "pl-icon-32.png"],
+      "resources": [
+        "content.styles.css",
+        "pl-icon-128.png",
+        "pl-icon-32.png",
+        "probolabs.umd.js"
+      ],
       "matches": ["<all_urls>"]
     }
   ],

@@ -18,3 +18,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true;  // Keep the message channel open for async response
 });
 
+// Inject the UMD script - use the direct filename
+const script = document.createElement('script');
+script.src = chrome.runtime.getURL('probolabs.umd.js');
+(document.head || document.documentElement).appendChild(script);
+

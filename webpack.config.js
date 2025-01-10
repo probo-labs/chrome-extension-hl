@@ -216,6 +216,15 @@ var options = {
       chunks: ['panel'],
       cache: false,
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'node_modules/probolabs-js/dist/probolabs.umd.js'),
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
   ].filter(Boolean),
   infrastructureLogging: {
     level: 'info',

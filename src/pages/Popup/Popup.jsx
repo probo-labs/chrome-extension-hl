@@ -72,6 +72,14 @@ const Popup = () => {
       >
         Clear
       </button>
+      <div className="flex flex-row gap-1 items-center">
+        <kbd className="kbd kbd-sm">Option</kbd>
+        +
+        <kbd className="kbd kbd-sm">Shift</kbd>
+        +
+        <kbd className="kbd kbd-sm">H</kbd>
+        <span className="text-sm">Highlight clickables</span>
+      </div>
     </div>
   );
 };
