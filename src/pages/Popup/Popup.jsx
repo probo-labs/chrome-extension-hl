@@ -49,6 +49,12 @@ const Popup = () => {
     await handleHighlight(value);
   };
 
+  const handleOpenSidePanel = () => {
+    chrome.windows.getCurrent((window) => {
+      chrome.sidePanel.open({ windowId: window.id });
+    });
+  };
+
   return (
     <div className="App p-2 min-w-[180px] bg-white">
       <div className="flex flex-col gap-1 mb-2">
@@ -72,7 +78,15 @@ const Popup = () => {
       >
         Clear
       </button>
-      <div className="flex flex-row gap-1 items-center">
+
+      <button 
+        className="btn btn-primary btn-sm w-full text-sm mt-2" 
+        onClick={handleOpenSidePanel}
+      >
+        Open Side Panel
+      </button>
+
+      <div className="flex flex-row gap-1 items-center mt-2">
         <kbd className="kbd kbd-sm">Option</kbd>
         +
         <kbd className="kbd kbd-sm">Shift</kbd>
