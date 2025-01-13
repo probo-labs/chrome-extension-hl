@@ -17,7 +17,7 @@ const Sidepanel = () => {
     });
   }, []);
 
-  const iframeUrl = `${baseUrl}/embd/scenarios/91`;
+  const iframeUrl = `${baseUrl}/embd`;
   console.log('iframeUrl:', iframeUrl); // Debug log
 
   return (
