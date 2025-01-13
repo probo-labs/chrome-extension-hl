@@ -55,6 +55,11 @@ const Popup = () => {
     });
   };
 
+  const openOptions = () => {
+    chrome.runtime.openOptionsPage();
+  };
+  
+
   return (
     <div className="App p-2 min-w-[180px] bg-white">
       <div className="flex flex-col gap-1 mb-2">
@@ -79,12 +84,6 @@ const Popup = () => {
         Clear
       </button>
 
-      <button 
-        className="btn btn-primary btn-sm w-full text-sm mt-2" 
-        onClick={handleOpenSidePanel}
-      >
-        Open Side Panel
-      </button>
 
       <div className="flex flex-row gap-1 items-center mt-2">
         <kbd className="kbd kbd-sm">Option</kbd>
@@ -94,7 +93,15 @@ const Popup = () => {
         <kbd className="kbd kbd-sm">H</kbd>
         <span className="text-sm">Highlight clickables</span>
       </div>
+      <button 
+        className="btn btn-primary btn-sm w-full text-sm mt-2" 
+        onClick={handleOpenSidePanel}
+      >
+        Open Side Panel
+      </button>
+      <button className="btn btn-neutral btn-sm w-full text-sm mt-2" onClick={openOptions}>Settings</button>
     </div>
+
   );
 };
 
